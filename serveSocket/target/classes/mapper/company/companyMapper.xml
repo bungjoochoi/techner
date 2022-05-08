@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.biztechpartners.serveSocket.company.repository.CompanyMapper">
+
+	<!-- company -->
+	<resultMap type="CompanyVO" id="CompanyVOMap">
+		<id column="id" property="coId"/>
+		<result column="co_no" property="companyCode"/>
+		<result column="co_name" property="coName"/>
+		<result column="co_name_en" property="coNameEN"/>
+		<result column="co_desc" property="coDesc"/>
+		<result column="order_idx" property="orderIdx"/>
+		<result column="busi_type" property="businessType"/>
+		<result column="busi_condition" property="businessCondition"/>
+		<result column="is_show" property="isShow"/>
+		<result column="old_code" property="oldCode"/>
+		<result column="address" property="address"/>
+		<result column="tel" property="tel"/>
+		<result column="fax" property="fax"/>
+		<result column="date_created" property="dateCreated"/>
+		<result column="last_updated" property="lastUpdated"/>
+		<result column="is_serviced" property="isServiced"/>
+		<result column="industry_id" property="industryId"/>
+		<result column="industry" property="industry"/>
+		<result column="role_id" property="roleId"/>
+		<result column="role_name" property="roleName"/>
+		<result column="contract_mm" property="contractMM"/>
+		<result column="due_date_s" property="dueDateS"/>
+		<result column="due_date_e" property="dueDateE"/>
+		<result column="contract_status" property="contractStatus"/>
+		<collection property="userList" ofType="UserVO" column="user_id" resultMap="kr.co.biztechpartners.serveSocket.user.repository.UserMapper.UserVOMap" />		
+	</resultMap>
+	
+	<select id="selectAllCompany" resultMap="CompanyVOMap">
+		select				co.id,
+							co.co_no,
+							co.co_name,
+							co.co_name_en,
+							co.co_desc,
+							co.order_idx,
+							co.busi_type,
+							co.busi_condition,
+							co.is_show,
+							co.old_code,
+							co.address,
+							co.tel,
+							co.fax,
+							co.date_created,
+							co.last_updated,
+							co.is_serviced,
+							co.industry_id,
+							co.contract_mm,
+							co.due_date_s,
+							co.due_date_e,
+							co.contract_status,
+							indu.industry,
+							co.role_id,
+							role.role_name
+		from				tb_company_role role,
+							tb_company co
+		left outer join 	tb_industry indu on (co.industry_id = indu.id)
+		where				co.role_id = role.id
+		order by			co.co_name asc
+	</select>
+	
+	<select id="selectCompany" resultMap="CompanyVOMap" parameterType="map">
+		select		co.id,
+					co.co_no,
+					co.co_name,
+					co.co_name_en,
+					co.co_desc,
+					co.order_idx,
+					co.busi_type,
+					co.busi_condition,
+					co.is_show,
+					co.old_code,
+					co.address,
+					co.tel,
+					co.fax,
+					co.date_created,
+					co.last_updated,
+					co.is_serviced,
+					co.industry_id,
+					co.role_id,
+					co.contract_mm,
+					co.due_date_s,
+					co.due_date_e,
+					co.contract_status,					
+					indu.industry,
+					role.id,
+					role.role_name
+		from		tb_company_role role,
+					tb_company co
+		left outer join 	tb_industry indu on (co.industry_id = indu.id)
+		where		(co.co_no = #{coCode} or co.id = #{coId})
+		and			co.role_id = role.id
+	</select>
+	<select id="selectCompanyUser" resultMap="CompanyVOMap" parameterType="map">
+		select		co.id,
+					co.co_no,
+					co.co_name,
+					co.co_name_en,
+					co.co_desc,
+					co.order_idx,
+					co.busi_type,
+					co.busi_condition,
+					co.is_show,
+					co.old_code,
+					co.address,
+					co.tel,
+					co.fax,
+					co.date_created,
+					co.last_updated,
+					co.is_serviced,
+					co.industry_id,
+					co.role_id,
+					co.contract_mm,
+					co.due_date_s,
+					co.due_date_e,
+					co.contract_status,					
+					indu.industry,
+					usr.id as user_id,
+					usr.usr_name,
+					usr.u_name,
+					role.id,
+					role.role_name
+		from		tb_company_role role,
+					tb_company co
+		left outer join 	tb_industry indu on (co.industry_id = indu.id)
+		left outer join 	tb_user usr on (co.id = usr.company_id)
+		where		(co.co_no = #{coCode} or co.id = #{coId})
+		and			co.role_id = role.id
+		order by 	usr.u_name
+	</select>
+
+	<!-- 회사 조건으로 조회 -->
+	<select id="selectSearchCompanyList" resultMap="CompanyVOMap" parameterType="HashMap">
+		select		co.id,
+					co.co_no,
+					co.co_name,
+					co.co_name_en,
+					co.co_desc,
+					co.order_idx,
+					co.busi_type,
+					co.busi_condition,
+					co.is_show,
+					co.old_code,
+					co.address,
+					co.tel,
+					co.fax,
+					co.date_created,
+					co.last_updated,
+					co.is_serviced,
+					co.industry_id,
+					co.role_id,
+					co.contract_mm,
+					co.due_date_s,
+					co.due_date_e,
+					co.contract_status,					
+					indu.industry,
+					usr.id as user_id,
+					usr.usr_name,
+					usr.u_name,
+					role.id,
+					role.role_name
+		from		tb_company_role role,
+					tb_company co
+		left outer join 	tb_industry indu on (co.industry_id = indu.id)
+		left outer join		tb_user usr on (co.id = usr.company_id)
+		where		co.role_id = role.id
+		<if test="searchType=='coId' and searchType != null and searchType != '' and list != null">	
+			<if test="list.size != 0">
+				and		co.id in
+				<foreach collection='list' item="coId" index="index" separator="," open="(" close=")">				
+						#{coId}				           	
+		        </foreach>
+	        </if>
+        </if>
+        <if test="searchType=='companyCode' and searchType != null and searchType != ''">
+        		<if test="keyword !='all' and keyword != null and keyword != ''">
+					and		co.co_no like '%' + #{keyword}  + '%'		
+				</if>
+		</if>
+        <if test="searchType=='roleId' and searchType != null and searchType != ''">
+        		<if test="keyword !='all' and keyword != null and keyword != ''">
+					and		co.role_id = #{keyword}
+				</if>
+		</if>
+        <if test="searchType=='industryId' and searchType != null and searchType != ''">	
+        		<if test="keyword !='all' and keyword != null and keyword != ''">
+					and		co.industry_id = + #{keyword}	
+				</if>
+		</if>
+		order 	by co.co_name asc
+	</select>
+	
+	 <select id="getCompanyCode" resultMap="CompanyVOMap" parameterType="map">
+		select		co.id,
+					co.co_no,
+					co.co_name,
+					co.co_name_en,
+					co.co_desc,
+					co.order_idx,
+					co.busi_type,
+					co.busi_condition,
+					co.is_show,
+					co.old_code,
+					co.address,
+					co.tel,
+					co.fax,
+					co.date_created,
+					co.last_updated,
+					co.is_serviced,
+					co.industry_id,
+					co.role_id,
+					co.contract_mm,
+					co.due_date_s,
+					co.due_date_e,
+					co.contract_status,					
+					indu.industry,
+					usr.id as user_id,
+					usr.usr_name,
+					usr.u_name,
+					role.id,
+					role.role_name
+		from		tb_company_role role,
+					tb_company co
+		left outer join 	tb_industry indu on (co.industry_id = indu.id)
+		left outer join 	tb_user usr on (co.id = usr.company_id)
+		where		co.id = #{coId}
+		and			co.role_id = role.id
+		order by 	usr.u_name
+	</select>
+	 
+	 
+
+	<update id="updateCompany" parameterType="CompanyVO">	
+		update		tb_company
+		set			<if test="companyCode != null and companyCode != ''">
+					co_no = #{companyCode},
+					</if>
+					<if test="address != null and address != ''">
+					address = #{address},
+					</if>
+					<if test="businessCondition != null and businessCondition != ''">
+					busi_condition = #{businessCondition},
+					</if>
+					<if test="businessType != null and businessType != ''">
+					busi_type = #{businessType},
+					</if>
+					<if test="coDesc != null and coDesc != ''">
+					co_desc = #{coDesc},
+					</if>
+					<if test="coName != null and coName != ''">
+					co_name = #{coName},
+					</if>					
+					<if test="coNameEN != null and coNameEN != ''">
+					co_name_en = #{coNameEN},
+					</if>
+					<if test="fax != null and fax != ''">
+					fax  = #{fax},
+					</if>
+					<if test="industryId != null and industryId != ''">
+					industry_id  = #{industryId},
+					</if>
+					<if test="roleId != null and roleId != ''">
+					role_id  = #{roleId},	
+					</if>						
+					<if test="tel != null and tel != ''">
+					tel  = #{tel},
+					</if>
+					last_updated = CURRENT_TIMESTAMP,
+					<if test="contractMM != null and contractMM != ''">
+					contract_mm = #{contractMM},
+					</if>
+					<if test="dueDateS != null and dueDateS != ''">
+					due_date_s = #{dueDateS},
+					</if>
+					<if test="dueDateE != null and dueDateE != ''">
+					due_date_e = #{dueDateE},
+					</if>
+					is_serviced = #{isServiced},
+					<if test="contractStatus != null and contractStatus != ''">
+					contract_status = #{contractStatus}
+					</if>
+		where		id = #{coId}	
+	</update>
+	
+	
+	<insert id="insertCompany" parameterType="CompanyVO">
+		insert	into tb_company(
+					<if test="address != null and address != ''">
+						address,
+					</if>
+					<if test="businessCondition != null and businessCondition != ''">
+					busi_condition,
+					</if>
+					<if test="businessType != null and businessType != ''">
+					busi_type,
+					</if>
+					<if test="coDesc != null and coDesc != ''">
+					co_desc,
+					</if>
+					co_name,
+					<if test="coNameEN != null and coNameEN != ''">
+					co_name_en,
+					</if>
+					co_no,
+					date_created,
+					<if test="fax != null and fax != ''">
+					fax,
+					</if>
+					<if test="industryId != null and industryId != ''">
+					industry_id,
+					</if>
+					is_serviced,					
+					role_id,
+					<if test="tel != null and tel != ''">
+					tel,
+					</if>
+					last_updated,
+					<if test="contractMM != null and contractMM != ''">
+						contract_mm,
+					</if>
+					<if test="dueDateS != null and dueDateS != ''">
+						due_date_s,
+					</if>
+					<if test="dueDateE != null and dueDateE != ''">
+						due_date_e,
+					</if>
+					<if test="contractStatus != null and contractStatus != ''">
+						contract_status
+					</if>
+				)
+				values (
+					<if test="address != null and address != ''">
+					#{address},
+					</if>
+					<if test="businessCondition != null and businessCondition != ''">
+					#{businessCondition},
+					</if>
+					<if test="businessType != null and businessType != ''">
+					#{businessType},
+					</if>
+					<if test="coDesc != null and coDesc != ''">
+					#{coDesc},
+					</if>
+					#{coName},
+					<if test="coNameEN != null and coNameEN != ''">
+					#{coNameEN},
+					</if>
+					#{companyCode},
+					CURRENT_TIMESTAMP,
+					<if test="fax != null and fax != ''">
+					#{fax},
+					</if>
+					<if test="industryId != null and industryId != ''">
+					#{industryId},
+					</if>
+					#{isServiced},					
+					#{roleId},
+					<if test="tel != null and tel != ''">
+					#{tel},
+					</if>
+					CURRENT_TIMESTAMP,
+					<if test="contractMM != null and contractMM != ''">
+						#{contractMM},
+					</if>
+					<if test="dueDateS != null and dueDateS != ''">
+						#{dueDateS},
+					</if>
+					<if test="dueDateE != null and dueDateE != ''">
+						#{dueDateE},
+					</if>
+					<if test="contractStatus != null and contractStatus != ''">
+						#{contractStatus}
+					</if>				
+				)
+		<selectKey resultType="int" keyProperty="coId">
+				select LAST_INSERT_ID() as coId
+		</selectKey>
+	</insert>
+	
+</mapper>

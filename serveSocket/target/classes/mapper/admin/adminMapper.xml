@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.biztechpartners.serveSocket.admin.repository.AdminMapper">
+
+	<resultMap type="CompanyRoleVO" id="CompanyRoleVOMap">
+		<id column="id" property="coRoleId"/>
+		<result column="is_customer" property="isCoustomer"/>
+		<result column="is_display" property="isDisplay"/>
+		<result column="is_outsourcing" property="isOutsourcing"/>
+		<result column="last_updated" property="lastUpdated"/>
+		<result column="role_name" property="coRoleName"/>
+	</resultMap>
+
+	<!-- 모든팝업공지조회 -->
+	<select id="selectAllCompanyRole" resultMap="CompanyRoleVOMap">
+		select		id,
+					date_created,
+					is_customer,
+					is_display,
+					is_outsourcing,
+					last_updated,
+					role_name
+		from tb_company_role
+		order	by id desc
+	</select>
+	
+	<select id="selectUserDT" parameterType="UserVODT" resultType="UserVODT">
+		select usr.id as user_id,
+				co.co_name coName,
+				usr.usr_name,
+				usr.u_name,
+				usr.usr_name_en,
+				role.title usrRoleName,
+				usr.usr_role usrRole,
+				usr.modulegroup_id moduleGroupId ,
+				usr.module_id moduleId,
+				usr.u_title,
+				status.status usrStatusName,
+				usr.usr_status,
+				usr.usr_dept,
+				usr.usr_tel,
+				usr.usr_fax,
+				usr.usr_mobile,
+				usr.usr_email,
+				usr.isAdmin_kpi,
+				usr.isAdmin_cts
+		from tb_user usr
+		inner join tb_user_role role on usr.usr_role = role.id
+		inner join tb_user_status status on usr.usr_status = status.id
+		left join tb_company co on usr.company_id = co.id
+		where 1=1 
+		<if test="coName != null and coName != ''">
+			and co.co_name=#{coName}
+		</if>
+	</select>
+	<insert id="insertUserDT"  parameterType="UserVODT">
+			insert into tb_user(
+				date_created,
+				treat_type_id,
+				type_name,
+				type_idx,
+				type_desc,
+				last_updated,
+				is_unit,
+				is_guest,
+				is_combine,
+				is_system,
+				type_code
+			)
+			values(
+				getDate(),
+				#{refId},
+				#{typeName},
+				(select max(type_idx)+1 from tb_detail_type),
+				#{typeName},
+				getDate(),
+				0,
+				0,
+				0,
+				0,
+				(select max(type_code)+10 from tb_detail_type)
+			)
+	</insert>
+	<update id="updateUserDT"  parameterType="map">
+		update tb_user
+		set <if test="typeName != null and typeName != ''">
+			type_name=#{typeName},
+			treat_type_id=#{refId},
+		</if>
+			last_updated=getDate()
+		where id=#{id}
+	</update>
+	<delete id="deleteUserDT"  parameterType="string">
+		delete from	tb_user
+		where id=#{id}
+	</delete>
+	
+	<select id="selectCommonCode" parameterType="map" resultType="CommonCodeExt">
+        SELECT *
+        FROM(SELECT @NO := @NO + 1 AS RNUM, A.* FROM(
+		select		class_code,
+					class_code_name,
+					common_code,
+					common_code_name,
+					use_yn,
+					ins_oprt,
+					ins_date,
+					upd_oprt,
+					upd_date
+		from common_code
+		where 1=1 
+		${filters}
+		<if test="classCode != null and classCode != ''">
+			and class_code=#{classCode}
+		</if>
+        ) A, 
+        ( SELECT @NO := 0 )B ) C,
+        (SELECT COUNT(*) AS TOTCNT FROM common_code where 1=1 ${filters}) D
+        WHERE C.RNUM BETWEEN #{start} AND #{limit} 
+        ORDER BY C.RNUM ASC
+	
+	</select>
+	
+	<insert id="insertCommonCode"  parameterType="CommonCode">
+			insert into common_code(
+				class_code,
+				class_code_name,
+				common_code,
+				common_code_name,
+				use_yn,
+				ins_oprt,
+				ins_date,
+				upd_oprt,
+				upd_date
+			)
+			values(
+				#{classCode},
+				#{classCodeName},
+				#{commonCode},
+				#{commonCodeName},
+				#{useYn},
+				#{insOprt},
+				NOW(),
+				#{updOprt},
+				NOW()
+			)
+	</insert>
+	
+	<update id="updateCommonCode"  parameterType="CommonCode">
+		update common_code
+		set class_code_name=#{classCodeName},
+			common_code_name=#{commonCodeName},
+			use_yn=#{useYn},
+			upd_oprt=#{updOprt},
+			upd_date=NOW()
+		where class_code=#{classCode}
+		and common_code=#{commonCode}
+	</update>
+	
+	<delete id="deleteCommonCode"  parameterType="CommonCode">
+		delete from	common_code
+		where class_code=#{classCode}
+		and common_code=#{commonCode}
+	</delete>
+	
+	<select id="selectGatewayMst" parameterType="map" resultType="GatewayMstExt">
+        SELECT *
+        FROM(SELECT @NO := @NO + 1 AS RNUM, A.* FROM(
+		select		gtway_macid,
+					device_name,
+					ip_address,
+					plase_lcode,
+					plase_mcode,
+					plase_scode,
+					install_date,
+					use_yn,
+					ins_oprt,
+					ins_date,
+					upd_oprt,
+					upd_date
+		from gateway_mst
+		where 1=1 
+		<if test="plaseLcode != null and plaseLcode != ''">
+			and plase_lcode=#{plaseLcode}
+		</if>
+		<if test="plaseMcode != null and plaseMcode != ''">
+			and plase_mcode=#{plaseMcode}
+		</if>
+        ) A, 
+        ( SELECT @NO := 0 )B ) C,
+        (SELECT COUNT(*) AS TOTCNT FROM gateway_mst) D
+        WHERE C.RNUM BETWEEN #{start} AND #{limit} 
+        ORDER BY C.RNUM ASC
+	</select>
+	
+	<insert id="insertGatewayMst"  parameterType="GatewayMst">
+			insert into gateway_mst(
+				gtway_macid,
+				device_name,
+				ip_address,
+				plase_lcode,
+				plase_mcode,
+				plase_scode,
+				install_date,
+				use_yn,
+				ins_oprt,
+				ins_date,
+				upd_oprt,
+				upd_date
+			)
+			values(
+				#{gtwayMacid},
+				#{deviceName},
+				#{ipAddress},
+				#{plaseLcode},
+				#{plaseMcode},
+				#{plaseScode},
+				#{installDate},
+				#{useYn},
+				#{insOprt},
+				NOW(),
+				#{updOprt},
+				NOW()
+			)
+	</insert>
+	
+	<update id="updateGatewayMst"  parameterType="GatewayMst">
+		update gateway_mst
+		set device_name=#{deviceName},
+			ip_address=#{ipAddress},
+			plase_lcode=#{plaseLcode},
+			plase_mcode=#{plaseMcode},
+			plase_scode=#{plaseScode},
+			install_date=#{installDate},
+			use_yn=#{useYn},
+			upd_oprt=#{updOprt},
+			upd_date=NOW()
+		where gtway_macid=#{gtwayMacid}
+	</update>
+	
+	<delete id="deleteGatewayMst"  parameterType="GatewayMst">
+		delete from	gateway_mst
+		where gtway_macid=#{gtwayMacid}
+	</delete>
+	
+	<select id="selectSenseMst" parameterType="map" resultType="SenseMstExt">
+        SELECT *
+        FROM(SELECT @NO := @NO + 1 AS RNUM, A.* FROM(
+		select		sense_macid,
+					sense_name,
+					sense_type,
+					mapping_yn,
+					mapping_info,
+					use_yn,
+					ins_oprt,
+					ins_date,
+					upd_oprt,
+					upd_date
+		from sense_mst
+		where 1=1 
+		<if test="senseType != null and senseType != ''">
+			and sense_type=#{senseType}
+		</if>
+		<if test="mappingYn != null and mappingYn != ''">
+			and mapping_yn=#{mappingYn}
+		</if>
+        ) A, 
+        ( SELECT @NO := 0 )B ) C,
+        (SELECT COUNT(*) AS TOTCNT FROM sense_mst) D
+        WHERE C.RNUM BETWEEN #{start} AND #{limit} 
+        ORDER BY C.RNUM ASC
+	</select>
+	
+	<insert id="insertSenseMst"  parameterType="SenseMst">
+			insert into sense_mst(
+				sense_macid,
+				sense_name,
+				sense_type,
+				mapping_yn,
+				use_yn,
+				ins_oprt,
+				ins_date,
+				upd_oprt,
+				upd_date
+			)
+			values(
+				#{senseMacid},
+				#{senseName},
+				#{senseType},
+				'N',
+				#{useYn},
+				#{insOprt},
+				NOW(),
+				#{updOprt},
+				NOW()
+			)
+	</insert>
+	
+	<update id="updateSenseMst"  parameterType="SenseMst">
+		update sense_mst
+		set sense_name=#{senseName},
+			sense_type=#{senseType},
+			use_yn=#{useYn},
+			upd_oprt=#{updOprt},
+			upd_date=NOW()
+		where sense_macid=#{senseMacid}
+	</update>
+	
+	<update id="updateSenseMstMappingY"  parameterType="IotMst">
+		update sense_mst
+		set mapping_yn='Y',
+			mapping_info=#{iotId}
+		where sense_macid=#{senseMacid}
+	</update>
+	
+	<update id="updateSenseMstMappingN"  parameterType="IotMst">
+		update sense_mst
+		set mapping_yn='N',
+			mapping_info=null
+		where mapping_info=#{iotId}
+	</update>
+	
+	<delete id="deleteSenseMst"  parameterType="SenseMst">
+		delete from	sense_mst
+		where sense_macid=#{senseMacid}
+	</delete>
+	
+	<select id="selectIotMst" parameterType="map" resultType="IotMstExt">
+        SELECT *
+        FROM(SELECT @NO := @NO + 1 AS RNUM, A.* FROM(
+		select		iot_type,
+					iot_id,
+					iot_name,
+					sense_macid,
+					mapping_date,
+					use_yn,
+					ins_oprt,
+					ins_date,
+					upd_oprt,
+					upd_date
+		from iot_mst
+		where 1=1 
+		<if test="iotType != null and iotType != ''">
+			and iot_type=#{iotType}
+		</if>
+		<if test="mappingDate != null and mappingDate != ''">
+			and mapping_date=#{mappingDate}
+		</if>
+        ) A, 
+        ( SELECT @NO := 0 )B ) C,
+        (SELECT COUNT(*) AS TOTCNT FROM iot_mst) D
+        WHERE C.RNUM BETWEEN #{start} AND #{limit} 
+        ORDER BY C.RNUM ASC
+	</select>
+	
+	<insert id="insertIotMst"  parameterType="IotMst">
+			insert into iot_mst(
+				iot_type,
+				iot_id,
+				iot_name,
+				sense_macid,
+				mapping_date,
+				use_yn,
+				ins_oprt,
+				ins_date,
+				upd_oprt,
+				upd_date
+			)
+			values(
+				#{iotType},
+				#{iotId},
+				#{iotName},
+				<choose>
+					<when test="senseMacid != null and senseMacid != '' and useYn = '1'">
+						#{senseMacid},
+						NOW(),
+					</when>
+					<otherwise>
+						null,
+						null,
+					</otherwise>
+				</choose>
+				#{useYn},
+				#{insOprt},
+				NOW(),
+				#{updOprt},
+				NOW()
+			)
+	</insert>
+	
+	<update id="updateIotMst"  parameterType="IotMst">
+		update iot_mst
+		set iot_name=#{iotName},
+			<choose>
+				<when test="senseMacid != null and senseMacid != '' and useYn = '1'">
+					sense_macid=#{senseMacid},
+					mapping_date=NOW(),
+				</when>
+				<otherwise>
+					sense_macid=null,
+					mapping_date=null,
+				</otherwise>
+			</choose>
+			use_yn=#{useYn},
+			upd_oprt=#{updOprt},
+			upd_date=NOW()
+		where iot_type=#{iotType}
+		and iot_id=#{iotId}
+	</update>
+	
+	<delete id="deleteIotMst"  parameterType="IotMst">
+		delete from	iot_mst
+		where iot_type=#{iotType}
+		and iot_id=#{iotId}
+	</delete>
+	
+</mapper>

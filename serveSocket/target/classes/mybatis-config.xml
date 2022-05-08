@@ -1,0 +1,40 @@
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="false" />
+        <setting name="useGeneratedKeys" value="true" />
+        <setting name="defaultExecutorType" value="REUSE" />
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="HashMap" type="java.util.HashMap" />
+        <typeAlias alias="ArrayList" type="java.util.ArrayList" />
+        <typeAlias alias="Long" type="java.lang.Long" />
+        <typeAlias alias="int" type="java.lang.Integer" />
+        <typeAlias alias="array" type="java.lang.Array" />
+        <typeAlias alias="SecRole" type="kr.co.biztechpartners.serveSocket.common.security.vo.SecRole"/>
+        <typeAlias alias="SecUser" type="kr.co.biztechpartners.serveSocket.common.security.vo.SecUser"/>
+        <typeAlias alias="UserVO" type="kr.co.biztechpartners.serveSocket.user.vo.UserVO"/>
+        <typeAlias alias="ModuleVO" type="kr.co.biztechpartners.serveSocket.module.vo.ModuleVO" />
+        <typeAlias alias="ModuleGroupVO" type="kr.co.biztechpartners.serveSocket.module.vo.ModuleGroupVO" />
+        <typeAlias alias="CompanyVO" type="kr.co.biztechpartners.serveSocket.company.vo.CompanyVO" />
+        <typeAlias alias="UserModuleVO" type="kr.co.biztechpartners.serveSocket.module.vo.UserModuleVO"/>
+        <typeAlias alias="UploadFileResponse" type="kr.co.biztechpartners.serveSocket.common.file.payload.UploadFileResponse"/>
+        <typeAlias alias="IndustryVO" type="kr.co.biztechpartners.serveSocket.admin.vo.IndustryVO"/>
+        <typeAlias alias="CompanyRoleVO" type="kr.co.biztechpartners.serveSocket.admin.vo.CompanyRoleVO"/>
+        <typeAlias alias="DataTableUserVO" type="kr.co.biztechpartners.serveSocket.admin.vo.DataTableUserVO"/>
+        <typeAlias alias="ServeSocket" type="kr.co.biztechpartners.serveSocket.serveSocket.vo.ServeSocket"/>
+        <typeAlias alias="CommonCode" type="kr.co.biztechpartners.serveSocket.admin.vo.CommonCode"/>
+        <typeAlias alias="CommonCodeExt" type="kr.co.biztechpartners.serveSocket.admin.vo.CommonCodeExt"/>
+        <typeAlias alias="GatewayMst" type="kr.co.biztechpartners.serveSocket.admin.vo.GatewayMst"/>
+        <typeAlias alias="GatewayMstExt" type="kr.co.biztechpartners.serveSocket.admin.vo.GatewayMstExt"/>
+        <typeAlias alias="SenseMst" type="kr.co.biztechpartners.serveSocket.admin.vo.SenseMst"/>
+        <typeAlias alias="SenseMstExt" type="kr.co.biztechpartners.serveSocket.admin.vo.SenseMstExt"/>
+        <typeAlias alias="IotMst" type="kr.co.biztechpartners.serveSocket.admin.vo.IotMst"/>
+        <typeAlias alias="IotMstExt" type="kr.co.biztechpartners.serveSocket.admin.vo.IotMstExt"/>
+    </typeAliases>
+
+</configuration>
+
+

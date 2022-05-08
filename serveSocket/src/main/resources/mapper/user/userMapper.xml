@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.biztechpartners.serveSocket.user.repository.UserMapper">
+
+	<resultMap type="UserVO" id="UserVOMap">
+		<id column="user_id" property="userId"/>
+		<result column="usr_name" property="username"/>
+		<result column="u_name" property="uName"/>
+		<result column="usr_name_en" property="userNameEN"/>
+		<result column="u_title" property="uTitle"/>
+		<result column="usr_tel" property="tel"/>
+		<result column="usr_mobile" property="mobile"/>
+		<result column="usr_email" property="email"/>
+		<result column="order_idx" property="orderIdx"/>
+		<result column="busi_desc" property="businessDesc"/>
+		<result column="usr_fax" property="fax"/>
+		<result column="usr_role" property="role"/>
+		<result column="usr_role_name" property="roleName"/>
+		<result column="usr_status" property="status"/>
+		<result column="usr_dept" property="dept"/>
+		<association property="company" javaType="CompanyVO" resultMap="kr.co.biztechpartners.serveSocket.company.repository.CompanyMapper.CompanyVOMap"></association>
+	</resultMap>
+	
+	<!-- 모든유저조회 -->
+	<select id="selectAllUser" resultMap="UserVOMap">
+	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectAllUser */
+		select	usr.id as user_id,
+				usr.usr_name,
+				usr.u_name,
+				usr.usr_name_en,
+				usr.u_title,
+				usr.usr_tel,
+				usr.usr_mobile,
+				usr.usr_email,
+				usr.order_idx,
+				usr.busi_desc,
+				usr.usr_fax,
+				usr.usr_role,
+				role.title usr_role_name,
+				usr.usr_status,
+				usr.usr_dept,
+				co.id,
+				co.co_no,
+				co.co_name,
+				co.role_id
+		from	tb_company co,
+				tb_user_role role,
+				tb_user usr
+		where	usr.company_id = co.id
+		and		usr.usr_role = role.id
+		order by usr.id asc
+		limit 5
+	</select>
+	
+	<!-- 모든유저조회count -->
+	<select id="selectAllUserCount" resultType="int">
+		select	
+				count(usr.id)
+		from	tb_company co,
+				tb_user_role role,
+				tb_user usr
+		where	usr.company_id = co.id
+		and		usr.usr_role = role.id
+	</select>
+	
+	<!-- 사용자유지보수 -->
+	<select id="selectSearchAdminManager" resultMap="UserVOMap" >
+		select
+				usr.id as user_id,
+				usr.usr_name,
+				usr.u_name,
+				usr.usr_name_en,
+				usr.u_title,
+				usr.usr_tel,
+				usr.usr_mobile,
+				usr.usr_email,
+				usr.order_idx,
+				usr.busi_desc,
+				usr.usr_fax,
+				usr.usr_role,
+				role.title usr_role_name,
+				usr.usr_status,
+				usr.usr_dept,
+				co.id,
+				co.co_no,
+				co.co_name,
+				co.role_id
+		from	tb_company co,
+				tb_user_role role,
+				tb_user usr
+		where	usr.company_id = co.id
+		and		usr.usr_role = role.id
+		<if test="company1 != null and company1 != ''">	
+				and		co.id = #{company1}	
+		</if>
+		<if test="uName1 != null and uName1 != ''">	
+				and		usr.u_name = #{uName1}	
+		</if>
+		<if test="tel1 != null and tel1 != ''">	
+				and		usr.usr_tel = #{tel1}	
+		</if>
+		<if test="mobile1 != null and mobile1 != ''">	
+				and		usr.usr_mobile = #{mobile1}	
+		</if>
+		<if test="userRole1 != null and userRole1 != ''">	
+				and		usr.usr_role = #{userRole1}	
+		</if>
+		<if test="email1 != null and email1 != ''">	
+				and		usr.usr_email = #{email1}	
+		</if>
+		<if test="userStatus1 != null and userStatus1 != ''">	
+				and		usr.usr_status = #{userStatus1}	
+		</if>
+		order by usr.id asc
+	</select>
+	
+	<!-- 사용자유지보수count -->
+	<select id="selectSearchUserCount" resultType="int">
+		select
+				count(usr.id)
+		from	tb_company co,
+				tb_user_role role,
+				tb_user usr
+		where	usr.company_id = co.id
+		and		usr.usr_role = role.id
+		<if test="company1 != null and company1 != ''">	
+				and		co.id = #{company1}	
+		</if>
+		<if test="uName1 != null and uName1 != ''">	
+				and		usr.u_name = #{uName1}	
+		</if>
+		<if test="tel1 != null and tel1 != ''">	
+				and		usr.usr_tel = #{tel1}	
+		</if>
+		<if test="mobile1 != null and mobile1 != ''">	
+				and		usr.usr_mobile = #{mobile1}	
+		</if>
+		<if test="userRole1 != null and userRole1 != ''">	
+				and		usr.usr_role = #{userRole1}	
+		</if>
+		<if test="email1 != null and email1 != ''">	
+				and		usr.usr_email = #{email1}	
+		</if>
+		<if test="userStatus1 != null and userStatus1 != ''">	
+				and		usr.usr_status = #{userStatus1}	
+		</if>
+	</select>
+	
+	<!-- 내회사의 유저들조회 -->
+	<select id="selectMyCompanyUserList" resultMap="UserVOMap" parameterType="int">
+	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectMyCompanyUserList */
+		select	usr.id as user_id,
+				usr.usr_name,
+				usr.u_name,
+				usr.usr_name_en,
+				usr.u_title,
+				usr.usr_tel,
+				usr.usr_mobile,
+				usr.usr_email,
+				usr.order_idx,
+				usr.busi_desc,
+				usr.usr_fax,
+				usr.usr_role,
+				usr.usr_status,
+				usr.usr_dept,
+				co.id,
+				co.co_no,
+				co.co_name
+		from	tb_company co,
+				tb_user usr
+		where	usr.company_id = co.id
+		and		usr.company_id = #{id}
+		order 	by co.co_no, usr.u_name asc
+	</select>
+	
+	<!-- 유저 한명조회 -->
+	<select id="selectOneUser" resultMap="UserVOMap" parameterType="map">
+	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectOneUser */
+		select	usr.id as user_id,
+				usr.usr_name,
+				usr.u_name,
+				usr.usr_name_en,
+				usr.u_title,
+				usr.usr_tel,
+				usr.usr_mobile,
+				usr.usr_email,
+				usr.order_idx,
+				usr.busi_desc,
+				usr.usr_fax,
+				usr.usr_role,
+				usr.usr_status,
+				usr.usr_dept,
+				co.id,
+				co.co_no,
+				co.co_name,
+				co.role_id
+		from	tb_company co,
+				tb_user usr
+		where	usr.company_id = co.id
+		and		(usr.id = #{userId} OR usr.usr_name = #{usrName})
+	</select>
+	
+	<!-- 회사별 유저 조회 -->
+	<select id="selectCompanyList" resultMap="UserVOMap" parameterType="map">
+	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectCompanyList */
+		select	usr.id as user_id,
+				usr.usr_name,
+				usr.u_name,
+				usr.usr_name_en,
+				usr.u_title,
+				usr.usr_tel,
+				usr.usr_mobile,
+				usr.usr_email,
+				usr.order_idx,
+				usr.busi_desc,
+				usr.usr_fax,
+				usr.usr_role,
+				usr.usr_status,
+				usr.usr_dept,
+				co.id,
+				co.co_no,
+				co.co_name,
+				co.role_id
+		from	tb_company co,
+				tb_user usr
+		where	usr.company_id = co.id
+		<if test="list.size != 0">
+			and		co.co_name in
+			<foreach collection="list" item="coName" index="index" separator="," open="(" close=")">				
+					#{coName}				           	
+	        </foreach>
+        </if>
+		order 	by co.co_no, usr.u_name asc
+	</select>
+	
+	<!-- 유저 조건으로 조회 -->
+	<select id="selectSearchUserList" resultMap="UserVOMap" parameterType="HashMap">
+	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectSearchUserList */
+		select	usr.id as user_id,
+				usr.usr_name,
+				usr.u_name,
+				usr.usr_name_en,
+				usr.u_title,
+				usr.usr_tel,
+				usr.usr_mobile,
+				usr.usr_email,
+				usr.order_idx,
+				usr.busi_desc,
+				usr.usr_fax,
+				usr.usr_role,
+				usr.usr_status,
+				usr.usr_dept,
+				co.id,
+				co.co_no,
+				co.co_name
+		from	tb_company co,
+				tb_user usr
+		where	usr.company_id = co.id
+		<if test="list != null">
+			<if test="list.size != 0">
+				and		co.id in
+				<foreach collection='list' item="coId" index="index" separator="," open="(" close=")">				
+						#{coId}				           	
+		        </foreach>
+	        </if>
+        </if>
+        <if test="searchType=='uName' and searchType != null and searchType != ''">
+        		<if test="keyword !='all' and keyword != null and keyword != ''">
+					and		usr.u_name like concat('%',#{keyword},'%')	
+				</if>
+		</if>
+        <if test="searchType=='uTitle' and searchType != null and searchType != ''">
+        		<if test="keyword !='all' and keyword != null and keyword != ''">
+					and		usr.u_title like concat('%' , #{keyword}  , '%')
+				</if>
+		</if>
+        <if test="searchType=='tel' and searchType != null and searchType != ''">
+        		<if test="keyword !='all' and keyword != null and keyword != ''">
+					and		usr.usr_tel like concat('%' , #{keyword}  , '%')
+				</if>
+		</if>
+        <if test="searchType=='email' and searchType != null and searchType != ''">	
+        		<if test="keyword !='all' and keyword != null and keyword != ''">
+					and		usr.usr_email like concat('%' , #{keyword}  , '%')		
+				</if>
+		</if>
+		order 	by co.co_no, usr.u_name asc
+	</select>	
+	
+	<select id="selectUserRole" resultType="hashmap">
+        select id, title text from tb_user_role
+        order by id
+    </select>
+    
+	<select id="selectUserStatus" resultType="hashmap">
+        select id, status text from tb_user_status
+        order by id
+    </select>
+     <!-- jwww 사용자 상태  -->
+	<insert id="insertUserStatus"  parameterType="DataTableUserVO">
+			insert into tb_user_status(
+				status
+			)
+			values(
+				#{text}
+			)
+	</insert>
+	<update id="updateUserStatus"  parameterType="map">
+		update tb_user_status
+		set <if test="text != null and text != ''">
+			status=#{text}
+		</if>
+		where id=#{id}
+	</update>
+	<delete id="deleteUserStatus"  parameterType="string">
+		delete from	tb_user_status
+		where id=#{id}
+	</delete>
+    
+	<update id="updateUser" parameterType="UserVO">
+		update	tb_user
+		set		<if test="uName != null and uName != ''">	
+				u_name = #{uName}
+				</if>
+				,usr_name_en = #{userNameEN}	
+				,u_title = #{uTitle}	
+				<if test="tel != null and tel != ''">	
+				,usr_tel = #{tel}	
+				</if>
+				<if test="mobile != null and mobile != ''">	
+				,usr_mobile = #{mobile}	
+				</if>
+				<if test="email != null and email != ''">	
+				,usr_email = #{email}	
+				</if>
+				,busi_desc = #{businessDesc}	
+				,usr_fax = #{fax}	
+				<if test="role != null and role != ''">	
+				,usr_role = #{role}	
+				</if>
+				<if test="status != null and status != ''">	
+				,usr_status = #{status}	
+				</if>
+				,usr_dept = #{dept}	
+				<if test="company != null and company.coId != null and company.coId != ''">	
+				,company_id = #{company.coId}	
+				</if>
+				,last_updated = CURRENT_TIMESTAMP
+		where	id = #{userId}
+	</update>
+	
+	<insert id="insertUser" parameterType="UserVO">
+		insert	into tb_user(
+						usr_name,
+						<if test="uName != null and uName != ''">	
+						u_name,
+						</if>
+						<if test="userNameEN != null and userNameEN != ''">	
+						usr_name_en,
+						</if>
+						<if test="uTitle != null and uTitle != ''">	
+						u_title,
+						</if>
+						<if test="tel != null and tel != ''">	
+						usr_tel,	
+						</if>
+						<if test="mobile != null and mobile != ''">	
+						usr_mobile,
+						</if>
+						<if test="email != null and email != ''">	
+						usr_email,
+						</if>
+						<if test="businessDesc != null and businessDesc != ''">	
+						busi_desc	,
+						</if>
+						<if test="fax != null and fax != ''">	
+						usr_fax,
+						</if>
+						<if test="role != null and role != ''">	
+						usr_role,
+						</if>
+						<if test="status != null and status != ''">	
+						usr_status,
+						</if>
+						<if test="dept != null and dept != ''">	
+						usr_dept,
+						</if>
+						<if test="company != null and company.coId != '0' and company.coId != ''">	
+						company_id,
+						</if>
+						date_created,
+						last_updated
+				)
+				values (
+						#{username},
+						<if test="uName != null and uName != ''">	
+						#{uName},
+						</if>
+						<if test="userNameEN != null and userNameEN != ''">	
+						#{userNameEN}	,
+						</if>
+						<if test="uTitle != null and uTitle != ''">	
+						#{uTitle}	,
+						</if>
+						<if test="tel != null and tel != ''">	
+						#{tel}	,
+						</if>
+						<if test="mobile != null and mobile != ''">	
+						#{mobile}	,
+						</if>
+						<if test="email != null and email != ''">	
+						#{email}	,
+						</if>
+						<if test="businessDesc != null and businessDesc != ''">	
+						#{businessDesc}	,
+						</if>
+						<if test="fax != null and fax != ''">	
+						#{fax}	,
+						</if>
+						<if test="role != null and role != ''">	
+						#{role},	
+						</if>
+						<if test="status != null and status != ''">	
+						#{status}	,
+						</if>
+						<if test="dept != null and dept != ''">	
+						#{dept},	
+						</if>
+						<if test="company != null and company.coId != '0' and company.coId != ''">	
+						#{company.coId},	
+						</if>
+						CURRENT_TIMESTAMP,
+						CURRENT_TIMESTAMP			
+				 )
+		<selectKey resultType="int" keyProperty="userId">
+				select LAST_INSERT_ID() as userId
+		</selectKey>
+	</insert>
+</mapper>

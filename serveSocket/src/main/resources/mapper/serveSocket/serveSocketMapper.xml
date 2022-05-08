@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.biztechpartners.serveSocket.serveSocket.repository.ServeSocketMapper">
+
+	<resultMap id="serveSocketListAjax" type="serveSocket">
+ 		<result column="RCV_DATE" property="rcvDate"/>
+ 		<result column="RCV_TIME" property="rcvTime"/>
+ 		<result column="GTWAY_MACID" property="gtwayMacid"/>
+ 		<result column="SENSE_MACID" property="senseMacid"/>
+ 		<result column="SENSE_TYPE" property="senseType"/>
+ 		<result column="BATTRY_LEVEL" property="battryLevel"/>
+ 		<result column="TEMPPERATURE" property="tempperature"/>
+ 		<result column="HUMIDITY" property="humidity"/>
+ 		<result column="EMG_CD" property="emgCd"/>
+ 		<result column="RCV_SSI" property="rcvSsi"/>
+ 		<result column="X_AXIS" property="xAxis"/>
+ 		<result column="Y_AXIS" property="yAxis"/>
+ 		<result column="Z_AXIS" property="zAxis"/>
+ 		<result column="FIX_MACID" property="fixMacid"/>
+ 		<result column="VAR_MACID" property="varMacid"/>
+ 		<result column="ATTR1" property="attr1"/>
+ 		<result column="ATTR2" property="attr2"/>
+ 		<result column="ATTR3" property="attr3"/>
+ 		<result column="INS_OPRT" property="insOprt"/>
+ 		<result column="UPD_DATE" property="updDate"/>
+ 		<result column="UPD_OPRT" property="updOprt"/>
+ 		<result column="UPD_DATE" property="updDate"/>
+ 	</resultMap>
+	
+	<select id="serveSocketListAjax" resultMap="serveSocketListAjax" parameterType="serveSocket">
+	/* kr.co.biztechpartners.serveSocket.serveSocket.repository.serveSocketMapper.serveSocketListAjax */
+		select 
+			srd.rcv_date
+			, srd.rcv_time
+			, srd.gtway_macid
+			, srd.sense_macid
+			, srd.sense_type
+			, srd.battry_level
+			, srd.tempperature
+			, srd.humidity
+			, srd.emg_cd
+			, srd.rcv_ssi
+			, srd.x_axis
+			, srd.y_axis
+			, srd.z_axis
+			, srd.fix_macid
+			, srd.var_macid
+			, srd.attr1
+			, srd.attr2
+			, srd.attr3
+			, srd.ins_oprt
+			, srd.ins_date
+			, srd.upd_oprt
+			, srd.upd_date
+		from sense_rcv_data srd
+		order by srd.rcv_date desc, srd.rcv_time desc
+    </select>
+</mapper>

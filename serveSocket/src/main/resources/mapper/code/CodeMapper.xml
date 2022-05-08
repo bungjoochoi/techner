@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.biztechpartners.serveSocket.common.code.repository.CodeMapper">
+
+    <!-- 회사 목록 -->
+    <select id="companyListAjax" parameterType="String" resultType="hashmap">
+        select id, co_name text from tb_company  
+        <if test="value != null"> 
+        	where co_name LIKE '%' + #{value} + '%'
+        </if>
+    </select>
+    
+    <!-- 유저 목록 -->
+    <select id="userListAjax" parameterType="UserSearchVO" resultType="hashmap">
+        SELECT USR.ID AS id
+             , USR.COMPANY_ID AS companyId
+             , USR.USR_EMAIL AS usrEmail
+             , USR.USR_MOBILE AS usrMobile
+             , USR.USR_TEL AS usrTel
+             , USR.U_NAME AS uName
+             , USR.U_TITLE AS uTitle
+             , CO.CO_NO AS coNo
+             , CO.CO_NAME AS coName
+          FROM TB_USER USR
+             , TB_COMPANY CO
+         WHERE USR.COMPANY_ID = CO.ID
+           AND USR.USR_STATUS = 1
+           AND CO.IS_SERVICED = 1
+        <if test='searchCompanyId != null and searchCompanyId != ""'>
+            AND USR.COMPANY_ID = #{searchCompanyId}
+        </if>
+        <if test='searchUName != null and searchUName != ""'>
+            AND USR.U_NAME LIKE '%' + #{searchUName} + '%'
+        </if>
+         ORDER BY LOWER(USR.U_NAME) ASC
+    </select>
+    
+        <!-- 관리자 유저 목록 -->
+    <select id="userAdminListAjax" parameterType="UserSearchVO" resultType="hashmap">
+        SELECT USR.ID AS id
+             , USR.COMPANY_ID AS companyId
+             , USR.USR_EMAIL AS usrEmail
+             , USR.USR_MOBILE AS usrMobile
+             , USR.USR_TEL AS usrTel
+             , USR.U_NAME AS uName
+             , USR.U_TITLE AS uTitle
+             , CO.CO_NO AS coNo
+             , CO.CO_NAME AS coName
+          FROM TB_USER USR
+             , TB_COMPANY CO
+         WHERE USR.COMPANY_ID = CO.ID
+           AND USR.USR_STATUS = 1
+           AND CO.IS_SERVICED = 1
+        <if test='searchUName != null and searchUName != ""'>
+            AND USR.U_NAME LIKE '%' + #{searchUName} + '%'
+        </if>
+         ORDER BY LOWER(USR.U_NAME) ASC
+    </select>
+    
+    <!-- 회사역할 정보 -->
+    <select id="selectCompanyRoleList" resultType="Hashmap" parameterType="string">
+		select	id, 
+				role_name as text 
+		from	tb_company_role
+     	<if test="num != null and num !=''">
+			where	id = #{num}	
+		</if>
+	</select>
+	
+	<!-- jwww 2  -->
+	<insert id="insertCompanyRole"  parameterType="CompanyRoleVO">
+			insert into tb_company_role(
+				role_desc,
+				role_name
+			)
+			values(
+				#{roleName},
+				#{roleName}
+			)
+		<selectKey resultType="int" keyProperty="id">
+			select LAST_INSERT_ID() as id
+		</selectKey>
+	</insert>
+	<update id="updateCompanyRole"  parameterType="map">
+		update tb_company_role
+		set <if test="roleName != null and roleName != ''">
+			role_name=#{roleName},
+			role_desc=#{roleName}
+		</if>
+		where id=#{id}
+	</update>
+	<delete id="deleteCompanyRole"  parameterType="string">
+		delete from	tb_company_role
+		where id=#{id}
+	</delete>
+	
+	
+	<!-- 유저권한 리스트 -->
+	<select id="selectUserRole" resultType="hashmap">
+        select id,title text from tb_user_role
+		<!-- <if test="value != null and value lt 4">
+			where id <![CDATA[ < ]]> 4
+		</if> -->
+        order by id
+    </select>
+    
+    <!-- jwww 사용자 권한  -->
+	<insert id="insertUserRole"  parameterType="DataTableUserVO">
+			insert into tb_user_role(
+				id,
+				title
+			)
+			values(
+				(select max(id)+1 from tb_user_role),
+				#{text}
+			)
+	</insert>
+	<update id="updateUserRole"  parameterType="map">
+		update tb_user_role
+		set <if test="text != null and text != ''">
+			title=#{text}
+		</if>
+		where id=#{id}
+	</update>
+	<delete id="deleteUserRole"  parameterType="string">
+		delete from	tb_user_role
+		where id=#{id}
+	</delete>
+	
+	<!-- 코드_MD 정보 -->
+    <select id="selectCommonCode" resultType="Hashmap" parameterType="string">
+		select	class_code,
+				class_code_name,
+				common_code,
+				common_code_name
+		from	common_code
+		where	use_yn = 'Y'
+     	<if test="_parameter != null and _parameter != ''">
+			and	class_code = #{value}
+		</if>
+	</select>
+	
+	<!-- 코드_MD 정보 -->
+    <select id="selectClassCode" resultType="Hashmap">
+		select	class_code,
+				class_code_name
+		from	common_code
+		where	use_yn = 'Y'
+		group by class_code, class_code_name
+	</select>
+	
+	<!-- 비콘_MT 정보 -->
+    <select id="selectSenseMacid" resultType="Hashmap">
+		select	sense_macid
+		from	sense_mst
+		where	use_yn = '1'
+		and	mapping_yn = 'N'
+	</select>
+</mapper>

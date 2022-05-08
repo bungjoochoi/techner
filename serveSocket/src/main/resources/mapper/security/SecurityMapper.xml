@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.biztechpartners.serveSocket.common.security.repository.AuthMapper">
+
+	<resultMap type="UserVO" id="existUserMap">
+		<id column="user_id" property="userId"/>
+		<result column="usr_email" property="email"/>
+		<result column="u_name" property="uName"/>
+	</resultMap>
+
+	<resultMap type="SecUser" id="SecUserMap">
+		<id column="id" property="id"/>
+		<result column="version" property="version"/>
+		<result column="account_locked" property="account_locked"/>
+		<result column="enabled" property="enabled"/>
+		<result column="password" property="password"/>
+		<result column="password_expired" property="password_expired"/>
+		<result column="username" property="username"/>
+		<result column="last_updated" property="last_updated"/>
+		<result column="expired_date" property="expired_date"/>
+		<result column="password_incorrectcount" property="password_incorrectcount"/>
+		<result column="last_login_date" property="last_login_date"/>
+	</resultMap>
+	
+    <select id="getSecUserInfoByUserName" parameterType="String" resultMap="SecUserMap" resultType="SecUser">
+        select T1.id,T1.version,T1.account_expired,T1.account_locked,T1.password,T1.password_expired,T1.username,T1.last_login_date from TB_USER T0 INNER JOIN SEC_USER T1 ON T0.usr_name=T1.username where T0.usr_name = #{username} AND T0.usr_status NOT IN (2, 3)
+    </select>
+    <select id="getSecRoleListByUserName" parameterType="String" resultType="SecRole">
+        SELECT T2.id,T2.version,T2.authority
+          FROM SEC_USER T0
+		  INNER JOIN SEC_USER_SEC_ROLE T1 ON(T0.id=T1.sec_user_id)
+		  INNER JOIN SEC_ROLE T2 ON(T1.sec_role_id=T2.id)
+        WHERE T0.username=#{username}
+    </select>
+    <update id="updateSecUser" parameterType="secUser">
+		UPDATE	SEC_USER
+		SET		PASSWORD = #{password}
+		WHERE	USERNAME = #{username}
+    </update>
+    
+    <insert id="insertSecUser" parameterType="secUser">
+    	insert into 	sec_user(
+					    		version,
+					    		account_expired,
+					    		account_locked,
+					    		enabled,
+					    		password,
+					    		password_expired,
+					    		username
+					    	)
+				    	values(
+				    		0,
+				    		0,
+				    		0,
+				    		1,
+				    		#{password},
+				    		0,
+				    		#{username}
+				    		)
+    	<selectKey resultType="long" keyProperty="id">
+				select LAST_INSERT_ID() as id
+		</selectKey>
+    </insert>
+    
+    <insert id="insertSecUserSecRole" parameterType="secUser">
+    	insert into 	sec_user_sec_role(
+					    		sec_role_id,
+					    		sec_user_id
+					    	)
+				    	values(
+				    		1
+				    		,#{id}
+				    		)
+    </insert>
+    
+    <update id="changePassword" parameterType="secUser">
+		update sec_user
+			set
+				password=#{password}
+				, password_expired=0
+				, password_incorrectcount=0
+				, last_updated=convert(datetime2, #{last_updated})
+				, last_login_date=convert(datetime2, #{last_updated})
+			where username = #{username}
+    </update>
+    
+    <update id="changeExamPassword" parameterType="hashmap">
+		update sec_user
+			set
+				password=#{password}
+				, last_updated=convert(datetime2, #{last_updated})
+				, last_login_date=convert(datetime2, #{last_updated})
+				, password_expired=0
+				, password_incorrectcount=0
+				, account_locked=0
+			where username = #{userId}
+    </update>
+    
+    <select id="existUser" resultMap="existUserMap" parameterType="hashmap" resultType="UserVO">
+		select
+			tu.id as user_id
+			, tu.usr_email
+			, tu.u_name
+		from tb_user tu
+		where usr_name=#{userId}
+		and u_name=#{uname}
+	</select>
+	
+	<select id="accountCondition" parameterType="secUser" resultMap="SecUserMap" resultType="SecUser">
+		SELECT
+			username
+			, account_expired
+			, account_locked
+			, enabled
+			, password_expired
+			, password_incorrectcount
+		FROM 
+			sec_user
+		WHERE 
+			username=#{username}
+	</select>
+	
+	<update id="updateAccountCondition" parameterType="secUser">
+		UPDATE 
+			sec_user
+		SET
+			account_expired=#{account_expired}
+			, account_locked=#{account_locked}
+			, enabled=#{enabled}
+			, password_expired=#{password_expired}
+			, password_incorrectcount=#{password_incorrectcount}
+			<if test="last_login_date != null and last_login_date != ''">
+				, last_login_date=CONVERT(datetime2, #{last_login_date})
+			</if>
+		WHERE username = #{username}
+    </update>
+</mapper>

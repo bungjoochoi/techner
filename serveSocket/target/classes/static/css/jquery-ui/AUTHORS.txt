@@ -1,0 +1,333 @@
+Authors ordered by first contribution
+A list of current team members is available at http://jqueryui.com/about
+
+Paul Bakaus <paul.>
+Richard Worth <>
+Yehuda Katz <>
+Sean Catchpole <>
+John Resig <>
+Tane Piper <piper.>
+Dmitri Gaskin <>
+Klaus Hartl <klaus.>
+Stefan Petre <stefan.>
+Gilles van den Hoven <>
+Micheil Bryan Smith <>
+Jörn Zaefferer <joern.>
+Marc Grabanski <>
+Keith Wood <>
+Brandon Aaron <brandon.>
+Scott González <scott.>
+Eduardo Lundgren <>
+Aaron Eisenberger <>
+Joan Piedra <>
+Bruno Basto <b.>
+Remy Sharp <>
+Bohdan Ganicky <bohdan.>
+David Bolter <david.>
+Chi Cheng <>
+Ca-Phun Ung <>
+Ariel Flesler <>
+Maggie Wachs <>
+Scott Jehl <>
+Todd Parker <>
+Andrew Powell <>
+Brant Burnett <>
+Douglas Neiner <>
+Paul Irish <paul.>
+Ralph Whitbeck <ralph.>
+Thibault Duplessis <thibault.>
+Dominique Vincent <dominique.>
+Jack Hsu <jack.>
+Adam Sontag <>
+Carl Fürstenberg <>
+Kevin Dalman <>
+Alberto Fernández Capel <>
+Jacek Jędrzejewski (http://jacek.jedrzejewski.name)
+Ting Kuei <>
+Samuel Cormier-Iijima <>
+Jon Palmer <>
+Ben Hollis <>
+Justin MacCarthy <>
+Eyal Kobrigo <>
+Tiago Freire <tiago.>
+Diego Tres <>
+Holger Rüprich <>
+Ziling Zhao <>
+Mike Alsup <>
+Robson Braga Araujo <>
+Pierre-Henri Ausseil <ph.>
+Christopher McCulloh <>
+Andrew Newcomb <ext.>
+Lim Chee Aun <>
+Jorge Barreiro <yortx.>
+Daniel Steigerwald <>
+John Firebaugh <>
+John Enters <>
+Andrey Kapitcyn <ru.>
+Dmitry Petrov <>
+Eric Hynds <>
+Chairat Sunthornwiphat <>
+Josh Varner <josh.>
+Stéphane Raimbault <stephane.>
+Jay Merrifield <>
+J. Ryan Stinnett <>
+Peter Heiberg <>
+Alex Dovenmuehle <>
+Jamie Gegerson <>
+Raymond Schwartz <>
+Phillip Barnes <>
+Kyle Wilkinson <>
+Khaled AlHourani <>
+Marian Rudzynski <>
+Jean-Francois Remy <>
+Doug Blood <>
+Filippo Cavallarin <filippo.>
+Heiko Henning <>
+Aliaksandr Rahalevich <>
+Mario Visic <>
+Xavi Ramirez <xavi.>
+Max Schnur <max.>
+Saji Nediyanchath <>
+Corey Frang <>
+Aaron Peterson <>
+Ivan Peters <>
+Mohamed Cherif Bouchelaghem <>
+Marcos Sousa <>
+Michael DellaNoce <>
+George Marshall <>
+Tobias Brunner <>
+Martin Solli <>
+David Petersen <>
+Dan Heberden <>
+William Kevin Manire <>
+Gilmore Davidson <>
+Michael Wu <>
+Adam Parod <>
+Guillaume Gautreau <guillaume+>
+Marcel Toele <>
+Dan Streetman <>
+Matt Hoskins <>
+Giovanni Giacobbi <>
+Kyle Florence <kyle.>
+Pavol Hluchý <>
+Hans Hillen <hans.>
+Mark Johnson <>
+Trey Hunner <>
+Shane Whittet <>
+Edward A Faulkner <>
+Adam Baratz <>
+Kato Kazuyoshi <kato.>
+Eike Send <eike.>
+Kris Borchers <kris.>
+Eddie Monge <>
+Israel Tsadok <>
+Carson McDonald <>
+Jason Davies <>
+Garrison Locke <>
+David Murdoch <>
+Benjamin Scott Boyle <benjamins.>
+Jesse Baird <>
+Jonathan Vingiano <>
+Dylan Just <>
+Hiroshi Tomita <>
+Glenn Goodrich <glenn.>
+Tarafder Ashek-E-Elahi <mail.>
+Ryan Neufeld <>
+Marc Neuwirth <marc.>
+Philip Graham <philip.robert.>
+Benjamin Sterling <benjamin.>
+Wesley Walser <>
+Kouhei Sutou <>
+Karl Kirch <>
+Chris Kelly <>
+Jason Oster <>
+Felix Nagel <>
+Alexander Polomoshnov <alex.>
+David Leal <>
+Igor Milla <igor.fsp.>
+Dave Methvin <dave.>
+Florian Gutmann <f.>
+Marwan Al Jubeh <marwan.>
+Milan Broum <>
+Sebastian Sauer <>
+Gaëtan Muller <m.>
+Michel Weimerskirch <>
+William Griffiths <>
+Stojce Slavkovski <>
+David Soms <david.>
+David De Sloovere <david.>
+Michael P. Jung <michael.>
+Shannon Pekary <>
+Dan Wellman <>
+Matthew Edward Hutton <>
+James Khoury <>
+Rob Loach <>
+Alberto Monteiro <>
+Alex Rhea <alex.>
+Krzysztof Rosiński <>
+Ryan Olton <>
+Genie <>
+Rick Waldron <waldron.>
+Ian Simpson <>
+Lev Kitsis <>
+TJ VanToll <tj.>
+Justin Domnitz <>
+Douglas Cerna <>
+Bert ter Heide <>
+Jasvir Nagra <>
+Yuriy Khabarov <>
+Harri Kilpiö <harri.>
+Lado Lomidze <lado.>
+Amir E. Aharoni <amir..il>
+Simon Sattes <simon.>
+Jo Liss <>
+Guntupalli Karunakar <>
+Shahyar Ghobadpour <>
+Lukasz Lipinski <>
+Timo Tijhof <>
+Jason Moon <>
+Martin Frost <>
+Eneko Illarramendi <>
+EungJun Yi <>
+Courtland Allen <>
+Viktar Varvanovich <>
+Danny Trunk <>
+Pavel Stetina <pavel.>
+Michael Stay <>
+Steven Roussey <>
+Michael Hollis <>
+Lee Rowlands <lee.>
+Timmy Willison <>
+Karl Swedberg <>
+Baoju Yuan <>
+Maciej Mroziński <maciej.k.>
+Luis Dalmolin <luis.>
+Mark Aaron Shirley <>
+Martin Hoch <>
+Jiayi Yang <>
+Philipp Benjamin Köppchen <>
+Sindre Sorhus <>
+Bernhard Sirlinger <bernhard.>
+Jared A. Scheel <>
+Rafael Xavier de Souza <>
+John Chen <zhang.z.>
+Robert Beuligmann <>
+Dale Kocian <dale.>
+Mike Sherov <mike.>
+Andrew Couch <>
+Marc-Andre Lafortune <>
+Nate Eagle <nate.>
+David Souther <>
+Mathias Stenbom <>
+Sergey Kartashov <>
+Avinash R <>
+Ethan Romba <>
+Cory Gackenheimer <cory.>
+Juan Pablo Kaniefsky <>
+Roman Salnikov <bardt.>
+Anika Henke <>
+Samuel Bovée <>
+Fabrício Matté <>
+Viktor Kojouharov <>
+Pawel Maruszczyk (http://hrabstwo.net)
+Pavel Selitskas <p.>
+Bjørn Johansen <>
+Matthieu Penant <>
+Dominic Barnes <>
+David Sullivan <david.>
+Thomas Jaggi <>
+Vahid Sohrabloo <>
+Travis Carden <travis.>
+Bruno M. Custódio <>
+Nathanael Silverman <nathanael.>
+Christian Wenz <>
+Steve Urmston <>
+Zaven Muradyan <>
+Woody Gilk <>
+Zbigniew Motyka <zbigniew.>
+Suhail Alkowaileet <xsoh.>
+Toshi MARUYAMA <>
+David Hansen <>
+Brian Grinstead <>
+Christian Klammer <>
+Steven Luscher <>
+Gan Eng Chin <engchin.>
+Gabriel Schulhof <gabriel.>
+Alexander Schmitz <>
+Vilhjálmur Skúlason <>
+Siebrand Mazeland <>
+Mohsen Ekhtiari <>
+Pere Orga <>
+Jasper de Groot <>
+Stephane Deschamps <stephane.>
+Jyoti Deka <>
+Andrei Picus <office.>
+Ondrej Novy <>
+Jacob McCutcheon <jacob.>
+Monika Piotrowicz <monika.>
+Imants Horsts <imants.>
+Eric Dahl <eric.c.>
+Dave Stein <>
+Dylan Barrell <>
+Daniel DeGroff <>
+Michael Wiencek <>
+Thomas Meyer <>
+Ruslan Yakhyaev <>
+Brian J. Dowling <>
+Ben Higgins <>
+Yermo Lamers <>
+Patrick Stapleton <>
+Trisha Crowley <trisha.>
+Usman Akeju <akeju00+>
+Rodrigo Menezes <>
+Jacques Perrault <>
+Frederik Elvhage <frederik.>
+Will Holley <>
+Uri Gilad <>
+Richard Gibson <richard.>
+Simen Bekkhus <>
+Chen Eshchar <>
+Bruno Pérel <>
+Mohammed Alshehri <>
+Lisa Seacat DeLuca <>
+Anne-Gaelle Colom <>
+Adam Foster <>
+Luke Page <luke.a.>
+Daniel Owens <>
+Michael Orchard <>
+Marcus Warren <>
+Nils Heuermann <>
+Marco Ziech <>
+Patricia Juarez <>
+Ben Mosher <>
+Ablay Keldibek <atomio.>
+Thomas Applencourt <thomas.>
+Jiabao Wu <jiabao.>
+Eric Lee Carraway <>
+Victor Homyakov <>
+Myeongjin Lee <>
+Liran Sharir <>
+Weston Ruter <>
+Mani Mishra <>
+Hannah Methvin <>
+Leonardo Balter <leonardo.>
+Benjamin Albert <>
+Michał Gołębiowski <m.>
+Alyosha Pushak <alyosha.>
+Fahad Ahmad <>
+Matt Brundage <>
+Francesc Baeta <francesc.>
+Piotr Baran <>
+Mukul Hase <>
+Konstantin Dinev <>
+Rand Scullard <>
+Dan Strohl <>
+Maksim Ryzhikov <rv.>
+Amine HADDAD <>
+Amanpreet Singh <>
+Alexey Balchunas <>
+Peter Kehl <peter.>
+Peter Dave Hello <>
+Johannes Schäfer <>
+Ville Skyttä <ville.>
+Ryan Oriecuia <ryan.>
