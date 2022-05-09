@@ -11,10 +11,12 @@
 
 		//https://datatables.net/
 		function init() {
-		    $('#serveSocketList thead th').each( function () {
+		    /*
+			$('#serveSocketList thead th').each( function () {
 		        var title = $(this).text();
 		        $(this).append( '<br><input type="text" placeholder="Search '+title+'" />' );
 		    } );
+		    */
 		    
 			var columns = [];
 			
@@ -52,7 +54,7 @@
 						return columns;
 					}
 				},
-		        "scrollY": 200,
+		        "scrollY": 500,
 		        "scrollX": true,
 		        "scrollCollapse": true,
 		        "paging":         false,

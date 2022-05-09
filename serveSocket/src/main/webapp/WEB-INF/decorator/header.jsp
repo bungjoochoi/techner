@@ -14,14 +14,16 @@
 
         <div class="collapse navbar-collapse" data-hover="dropdown" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto" data-hover="dropdown">
+            <!-- 
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">1.시스템관리 <span class="sr-only">(current)</span></a>
               <div class="dropdown-menu" aria-labelledby="dropdown01">
                 <a class="dropdown-item" href="<c:url value='' />">Sample</a>
               </div>
             </li>
+             -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">2.Data관리</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data관리</a>
               <div class="dropdown-menu" aria-labelledby="dropdown02">
                 <a class="dropdown-item" href="<c:url value='/serveSocket/list' />">Data</a>
               </div>
@@ -59,7 +61,6 @@
       </nav>
     </div>
   </header> 
-  
   
 <c:if test="${csr.id > 0}">
 	<c:if test="${sessionScope.__USER__.company.roleId eq '1'}">

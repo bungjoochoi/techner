@@ -171,9 +171,9 @@
 <%@include file="/WEB-INF/decorator/header.jsp"%>
     
 	<sitemesh:write property='body' />
-
+<%-- 
 <%@include file="/WEB-INF/decorator/footer.jsp"%>  
-
+--%>
 </body>
 </html>
 

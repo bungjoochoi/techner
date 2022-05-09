@@ -182,7 +182,7 @@ if(aa.length()==1){
 			</div>
 			<br><br>
 			<button class="btn btn-lg btn-block" type="submit" onclick="setId()">Login</button>
-			<p class="copyright">COPYRIGHT 2019 &#169; <br><strong> BizTechPartners.Ltd.</strong> ALL RIGHT RESERVED.</p>
+			<p class="copyright">COPYRIGHT 2019 &#169; <br><strong> Techner.Ltd.</strong> ALL RIGHT RESERVED.</p>
 		</div>
 	</form>
 	

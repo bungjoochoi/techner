@@ -18,11 +18,11 @@ public class WebSiteMeshFilter extends ConfigurableSiteMeshFilter{
 			   .addDecoratorPath("**/view*", "/WEB-INF/decorator/editdeco.jsp")
 			   .addDecoratorPath("**/admin*", "/WEB-INF/decorator/editdeco.jsp")
 //			.addExcludedPath("/common/*");
-		   .addExcludedPath("/login/*")
-		   .addExcludedPath("/user/listSearchCompany")
-		   .addExcludedPath("/companyCreate")
-		.addExcludedPath("/company/modify/*")
-		.addExcludedPath("/company/create");
+		       .addExcludedPath("/login/*")
+		       .addExcludedPath("/user/listSearchCompany")
+		       .addExcludedPath("/companyCreate")
+		       .addExcludedPath("/company/modify/*")
+		       .addExcludedPath("/company/create");
 		
 		/*
 		 *   /업무/행위/
@@ -37,8 +37,4 @@ public class WebSiteMeshFilter extends ConfigurableSiteMeshFilter{
 		 * 
 		 */
 	}
-
-
-
-
 }
