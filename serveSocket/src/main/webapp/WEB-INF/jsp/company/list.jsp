@@ -100,7 +100,7 @@
     		  console.log(induTxt);    		  
     		  $("#searchValue").after(code);
     		  $('#industry').append('<option value="'+induVal+'" selected="selected">'+induTxt+'</option>')
-	        	$("#industry").select2({
+	          $("#industry").select2({
 	        		placeholder: "산업분류를 선택하세요.",
 	    			//multiple: true,
 	    			ajax: {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="kr.co.biztechpartners.serveSocket.user.repository.UserMapper">
+<mapper namespace="kr.co.techner.serveSocket.user.repository.UserMapper">
 
 	<resultMap type="UserVO" id="UserVOMap">
 		<id column="user_id" property="userId"/>
@@ -18,12 +18,12 @@
 		<result column="usr_role_name" property="roleName"/>
 		<result column="usr_status" property="status"/>
 		<result column="usr_dept" property="dept"/>
-		<association property="company" javaType="CompanyVO" resultMap="kr.co.biztechpartners.serveSocket.company.repository.CompanyMapper.CompanyVOMap"></association>
+		<association property="company" javaType="CompanyVO" resultMap="kr.co.techner.serveSocket.company.repository.CompanyMapper.CompanyVOMap"></association>
 	</resultMap>
 	
 	<!-- 모든유저조회 -->
 	<select id="selectAllUser" resultMap="UserVOMap">
-	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectAllUser */
+	/*kr.co.techner.serveSocket.user.repository.UserMapper.selectAllUser */
 		select	usr.id as user_id,
 				usr.usr_name,
 				usr.u_name,
@@ -148,7 +148,7 @@
 	
 	<!-- 내회사의 유저들조회 -->
 	<select id="selectMyCompanyUserList" resultMap="UserVOMap" parameterType="int">
-	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectMyCompanyUserList */
+	/*kr.co.techner.serveSocket.user.repository.UserMapper.selectMyCompanyUserList */
 		select	usr.id as user_id,
 				usr.usr_name,
 				usr.u_name,
@@ -175,7 +175,7 @@
 	
 	<!-- 유저 한명조회 -->
 	<select id="selectOneUser" resultMap="UserVOMap" parameterType="map">
-	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectOneUser */
+	/*kr.co.techner.serveSocket.user.repository.UserMapper.selectOneUser */
 		select	usr.id as user_id,
 				usr.usr_name,
 				usr.u_name,
@@ -202,7 +202,7 @@
 	
 	<!-- 회사별 유저 조회 -->
 	<select id="selectCompanyList" resultMap="UserVOMap" parameterType="map">
-	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectCompanyList */
+	/*kr.co.techner.serveSocket.user.repository.UserMapper.selectCompanyList */
 		select	usr.id as user_id,
 				usr.usr_name,
 				usr.u_name,
@@ -235,7 +235,7 @@
 	
 	<!-- 유저 조건으로 조회 -->
 	<select id="selectSearchUserList" resultMap="UserVOMap" parameterType="HashMap">
-	/*kr.co.biztechpartners.serveSocket.user.repository.UserMapper.selectSearchUserList */
+	/*kr.co.techner.serveSocket.user.repository.UserMapper.selectSearchUserList */
 		select	usr.id as user_id,
 				usr.usr_name,
 				usr.u_name,

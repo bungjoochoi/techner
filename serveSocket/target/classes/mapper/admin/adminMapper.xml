@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="kr.co.biztechpartners.serveSocket.admin.repository.AdminMapper">
+<mapper namespace="kr.co.techner.serveSocket.admin.repository.AdminMapper">
 
 	<resultMap type="CompanyRoleVO" id="CompanyRoleVOMap">
 		<id column="id" property="coRoleId"/>

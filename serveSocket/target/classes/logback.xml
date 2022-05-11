@@ -14,7 +14,7 @@ jdbc.connection : Logs connection open and close events
     </encoder>
   </appender>
   
-  <logger name="kr.co.biztechpartners.serveSocket" additivity="false"> 
+  <logger name="kr.co.techner.serveSocket" additivity="false"> 
     	<level value="debug" /> 
     	<appender-ref ref="STDOUT"/> 
     </logger>
